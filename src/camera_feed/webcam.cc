@@ -3,6 +3,7 @@
 //
 
 #include <thread>
+#include "ros/ros.h"
 #include "camera_feed/webcam.h"
 
 //-----------------------------------------------------------------------------
@@ -10,7 +11,9 @@
 Webcam::Webcam()
     : cv::VideoCapture(),
       exit_thread_(false),
-      thread_(nullptr) {
+      thread_(nullptr),
+      img_transport_(ros::NodeHandle()){
+  publisher_ = img_transport_.advertise("webcam_feed", 1);
 }
 
 //-----------------------------------------------------------------------------
@@ -52,6 +55,10 @@ Webcam::Streaming() {
 
   while (!exit_thread_) {
     operator>>(image_);
+    sensor_msgs::ImagePtr msg =
+            cv_bridge::CvImage(std_msgs::Header(), "bgr8", image_).toImageMsg();
+    publisher_.publish(msg);
+
   }
 }
 

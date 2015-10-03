@@ -22,7 +22,10 @@ find_package( catkin REQUIRED COMPONENTS
     roscpp
     message_generation
     message_runtime
-    )
+    image_transport
+    cv_bridge
+
+)
 
 find_package( OpenCV REQUIRED )
 
@@ -31,6 +34,9 @@ catkin_package(
     INCLUDE_DIRS src
     LIBRARIES
     CATKIN_DEPENDS roscpp std_msgs
+    image_transport
+    cv_bridge
+
 )
 
 #===============================================================================

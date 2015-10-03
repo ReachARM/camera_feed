@@ -30,13 +30,7 @@ int main(int argc, char **argv) {
 
   webcam.Start();
 
-  while (!abort_streaming) {
-    cv::Mat tmp = webcam.GetImage();
-    if (!tmp.empty()) {
-      cv::imshow("Webcam feed", webcam.GetImage());
-      cv::waitKey(1);
-    }
-  }
+  while (!abort_streaming);
   webcam.Stop();
 
 

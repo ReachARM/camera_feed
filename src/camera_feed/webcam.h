@@ -8,7 +8,8 @@
 #include <memory>
 #include <thread>
 #include "opencv2/opencv.hpp"
-
+#include "image_transport/image_transport.h"
+#include "cv_bridge/cv_bridge.h"
 
 class Webcam : private cv::VideoCapture
 {
@@ -26,6 +27,9 @@ class Webcam : private cv::VideoCapture
   bool exit_thread_;
   std::shared_ptr<std::thread> thread_;
   cv::Mat image_;
+  image_transport::ImageTransport img_transport_;
+  image_transport::Publisher publisher_;
+
 };
 
 #endif //REACHARM_CAMERA_FEED_WEBCAM_H_
