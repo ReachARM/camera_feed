@@ -11,8 +11,8 @@ if ( NOT CMAKE_BUILD_TYPE )
       FORCE )
 endif ( NOT CMAKE_BUILD_TYPE )
 
-set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++11" )
-set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++1 -O3" )
+set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pthread -std=c++11" )
+set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pthread -std=c++1 -O3" )
 
 #===============================================================================
 # C A T K I N   C O N F I G U R A T I O N
@@ -23,6 +23,8 @@ find_package( catkin REQUIRED COMPONENTS
     message_generation
     message_runtime
     )
+
+find_package( OpenCV REQUIRED )
 
 # Declare this project as a catkin package and export the necessary build flags
 catkin_package(
@@ -63,4 +65,5 @@ add_executable( ${TARGET_NAME}
 
 target_link_libraries( ${TARGET_NAME}
     ${catkin_LIBRARIES}
+    ${OpenCV_LIBS}
     )
